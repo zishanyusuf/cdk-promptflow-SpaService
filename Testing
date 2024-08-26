@@ -1,0 +1,123 @@
+# The code below shows an example of how to instantiate this type.
+# The values are placeholders you should change.
+from aws_cdk import aws_bedrock as bedrock
+
+# input: Any
+# output: Any
+
+cfn_flow = bedrock.CfnFlow(self, "MyCfnFlow",
+    execution_role_arn="executionRoleArn",
+    name="name",
+
+    # the properties below are optional
+    customer_encryption_key_arn="customerEncryptionKeyArn",
+    definition=bedrock.CfnFlow.FlowDefinitionProperty(
+        connections=[bedrock.CfnFlow.FlowConnectionProperty(
+            name="name",
+            source="source",
+            target="target",
+            type="type",
+
+            # the properties below are optional
+            configuration=bedrock.CfnFlow.FlowConnectionConfigurationProperty(
+                conditional=bedrock.CfnFlow.FlowConditionalConnectionConfigurationProperty(
+                    condition="condition"
+                ),
+                data=bedrock.CfnFlow.FlowDataConnectionConfigurationProperty(
+                    source_output="sourceOutput",
+                    target_input="targetInput"
+                )
+            )
+        )],
+        nodes=[bedrock.CfnFlow.FlowNodeProperty(
+            name="name",
+            type="type",
+
+            # the properties below are optional
+            configuration=bedrock.CfnFlow.FlowNodeConfigurationProperty(
+                condition=bedrock.CfnFlow.ConditionFlowNodeConfigurationProperty(
+                    conditions=[bedrock.CfnFlow.FlowConditionProperty(
+                        name="name",
+
+                        # the properties below are optional
+                        expression="expression"
+                    )]
+                ),
+                input=input,
+                knowledge_base=bedrock.CfnFlow.KnowledgeBaseFlowNodeConfigurationProperty(
+                    knowledge_base_id="knowledgeBaseId",
+
+                    # the properties below are optional
+                    model_id="modelId"
+                ),
+                lambda_function=bedrock.CfnFlow.LambdaFunctionFlowNodeConfigurationProperty(
+                    lambda_arn="lambdaArn"
+                ),
+                lex=bedrock.CfnFlow.LexFlowNodeConfigurationProperty(
+                    bot_alias_arn="botAliasArn",
+                    locale_id="localeId"
+                ),
+                output=output,
+                prompt=bedrock.CfnFlow.PromptFlowNodeConfigurationProperty(
+                    source_configuration=bedrock.CfnFlow.PromptFlowNodeSourceConfigurationProperty(
+                        inline=bedrock.CfnFlow.PromptFlowNodeInlineConfigurationProperty(
+                            model_id="modelId",
+                            template_configuration=bedrock.CfnFlow.PromptTemplateConfigurationProperty(
+                                text=bedrock.CfnFlow.TextPromptTemplateConfigurationProperty(
+                                    text="text",
+
+                                    # the properties below are optional
+                                    input_variables=[bedrock.CfnFlow.PromptInputVariableProperty(
+                                        name="name"
+                                    )]
+                                )
+                            ),
+                            template_type="templateType",
+
+                            # the properties below are optional
+                            inference_configuration=bedrock.CfnFlow.PromptInferenceConfigurationProperty(
+                                text=bedrock.CfnFlow.PromptModelInferenceConfigurationProperty(
+                                    max_tokens=123,
+                                    stop_sequences=["stopSequences"],
+                                    temperature=123,
+                                    top_k=123,
+                                    top_p=123
+                                )
+                            )
+                        ),
+                        resource=bedrock.CfnFlow.PromptFlowNodeResourceConfigurationProperty(
+                            prompt_arn="promptArn"
+                        )
+                    )
+                )
+            ),
+            inputs=[bedrock.CfnFlow.FlowNodeInputProperty(
+                expression="expression",
+                name="name",
+                type="type"
+            )],
+            outputs=[bedrock.CfnFlow.FlowNodeOutputProperty(
+                name="name",
+                type="type"
+            )]
+        )]
+    ),
+    definition_s3_location=bedrock.CfnFlow.S3LocationProperty(
+        bucket="bucket",
+        key="key",
+
+        # the properties below are optional
+        version="version"
+    ),
+    definition_string="definitionString",
+    definition_substitutions={
+        "definition_substitutions_key": "definitionSubstitutions"
+    },
+    description="description",
+    tags={
+        "tags_key": "tags"
+    },
+    test_alias_tags={
+        "test_alias_tags_key": "testAliasTags"
+    }
+)
