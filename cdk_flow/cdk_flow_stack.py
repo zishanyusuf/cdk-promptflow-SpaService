@@ -24,7 +24,25 @@ class CdkFlowStack(Stack):
 
                                    #Define nodes and connections here
                                    definition=bedrock.CfnFlow.FlowDefinitionProperty(
-                                       nodes=[
+                                        #Adding conections and experimenting with it    
+                                        connections=[bedrock.CfnFlow.FlowConnectionProperty(
+                                            name="Spa_Connections",
+                                            source="InputNode",
+                                            target="OutputNode",
+                                            type="Data",
+                                            # the properties below are optional
+                                            configuration=bedrock.CfnFlow.FlowConnectionConfigurationProperty(
+                                                # conditional=bedrock.CfnFlow.FlowConditionalConnectionConfigurationProperty(
+                                                #     condition="condition"
+                                                #     ),
+                                                    data=bedrock.CfnFlow.FlowDataConnectionConfigurationProperty(
+                                                        source_output="document",
+                                                        target_input="document"
+                                                        )
+                                                )
+                                            )], 
+
+                                        nodes=[
                                            bedrock.CfnFlow.FlowNodeProperty(
                                                name="InputNode",
                                                type="Input",
@@ -59,23 +77,7 @@ class CdkFlowStack(Stack):
                                                 #         )]
                                             )
                                             ]),
-                                        #Adding conections and experimenting with it    
-                                        connections=[bedrock.CfnFlow.FlowConnectionProperty(
-                                            name="Spa_Connections",
-                                            source="InputNode",
-                                            target="OutputNode",
-                                            type="Data",
-                                            # the properties below are optional
-                                            configuration=bedrock.CfnFlow.FlowConnectionConfigurationProperty(
-                                                # conditional=bedrock.CfnFlow.FlowConditionalConnectionConfigurationProperty(
-                                                #     condition="condition"
-                                                #     ),
-                                                    data=bedrock.CfnFlow.FlowDataConnectionConfigurationProperty(
-                                                        source_output="document",
-                                                        target_input="document"
-                                                        )
-                                                )
-                                            )],    
+                                          
 
                                     
                                     description="description",
