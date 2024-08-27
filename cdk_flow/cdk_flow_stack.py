@@ -28,13 +28,13 @@ class CdkFlowStack(Stack):
                                            bedrock.CfnFlow.FlowNodeProperty(
                                                name="InputNode",
                                                type="Input",
-                                               inputs=[
-                                                   bedrock.CfnFlow.FlowNodeInputProperty(
-                                                       #expression="$.input.text",
-                                                       expression="$.data",
-                                                       name="document",
-                                                       type="String"
-                                                       )],
+                                            #    inputs=[
+                                            #        bedrock.CfnFlow.FlowNodeInputProperty(
+                                            #            #expression="$.input.text",
+                                            #            expression="$.data",
+                                            #            name="document",
+                                            #            type="String"
+                                            #            )],
                                                 outputs=[
                                                     bedrock.CfnFlow.FlowNodeOutputProperty(
                                                                    name="document",
@@ -58,12 +58,25 @@ class CdkFlowStack(Stack):
                                                 #         type="String"
                                                 #         )]
                                             )
-                                                ]),
+                                            ]),
+                                        connections=[bedrock.CfnFlow.FlowConnectionProperty(
+                                            name="name",
+                                            source="source",
+                                            target="target",
+                                            type="type",
+                                            # the properties below are optional
+                                            configuration=bedrock.CfnFlow.FlowConnectionConfigurationProperty(
+                                                conditional=bedrock.CfnFlow.FlowConditionalConnectionConfigurationProperty(
+                                                    condition="condition"
+                                                    ),
+                                                    data=bedrock.CfnFlow.FlowDataConnectionConfigurationProperty(
+                                                        source_output="sourceOutput",
+                                                        target_input="targetInput"
+                                                        )
+                                                )
+                                            )],    
 
-                                    #definition_string="definitionString",
-                                    # definition_substitutions={
-                                    #     "definition_substitutions_key": "definitionSubstitutions"
-                                    #     },
+                                    
                                     description="description",
                                     tags={
                                             "tags_key": "tags"
