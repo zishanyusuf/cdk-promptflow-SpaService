@@ -59,19 +59,20 @@ class CdkFlowStack(Stack):
                                                 #         )]
                                             )
                                             ]),
+                                        #Adding conections and experimenting with it    
                                         connections=[bedrock.CfnFlow.FlowConnectionProperty(
-                                            name="name",
-                                            source="source",
-                                            target="target",
-                                            type="type",
+                                            name="Spa_Connections",
+                                            source="InputNode",
+                                            target="OutputNode",
+                                            type="Data",
                                             # the properties below are optional
                                             configuration=bedrock.CfnFlow.FlowConnectionConfigurationProperty(
-                                                conditional=bedrock.CfnFlow.FlowConditionalConnectionConfigurationProperty(
-                                                    condition="condition"
-                                                    ),
+                                                # conditional=bedrock.CfnFlow.FlowConditionalConnectionConfigurationProperty(
+                                                #     condition="condition"
+                                                #     ),
                                                     data=bedrock.CfnFlow.FlowDataConnectionConfigurationProperty(
-                                                        source_output="sourceOutput",
-                                                        target_input="targetInput"
+                                                        source_output="document",
+                                                        target_input="document"
                                                         )
                                                 )
                                             )],    
