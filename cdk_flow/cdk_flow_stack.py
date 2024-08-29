@@ -2,6 +2,7 @@ from aws_cdk import (
     # Duration,
     Stack,
     # aws_sqs as sqs,
+    aws_iam as iam,
     aws_bedrock as bedrock
 )
 from constructs import Construct
@@ -18,8 +19,33 @@ class CdkFlowStack(Stack):
         #     self, "CdkFlowQueue",
         #     visibility_timeout=Duration.seconds(300),
         # )
+
+        # Define the IAM policy for the Bedrock Flow
+        bedrock_flow_policy = iam.PolicyStatement(
+            actions=["bedrock:CreateFlow", "bedrock:UpdateFlow"],
+            resources=["*"],
+            effect=iam.Effect.ALLOW,
+        )
+
+        # Create the IAM role for the Bedrock Flow
+        bedrock_flow_role = iam.Role(
+            self,
+            "BedrockFlowRole",
+            assumed_by=iam.ServicePrincipal("bedrock.amazonaws.com"),
+            role_name="BedrockFlowRole",
+            description="IAM role for Bedrock Flow",
+            # managed_policies=[
+            #     iam.ManagedPolicy.from_aws_managed_policy_name("AmazonBedrockFlowsGetFlowPolicy_GOLI423IWV6"),
+            #     iam.ManagedPolicy.from_aws_managed_policy_name("AmazonBedrockFlowsInvokeFoundationModelPolicy_470R97PY9R4")
+            # ],
+            inline_policies={
+                "BedrockFlowPolicy": iam.PolicyDocument(statements=[bedrock_flow_policy])
+            },
+        )    
+
         cfn_flow = bedrock.CfnFlow(self, "MyCfnFlow",
-                                   execution_role_arn="arn:aws:iam::471112580598:role/service-role/AmazonBedrockExecutionRoleForFlows_SL6VMJWYW9",
+                                   execution_role_arn=bedrock_flow_role.role_arn,
+                                   #"arn:aws:iam::471112580598:role/service-role/AmazonBedrockExecutionRoleForFlows_SL6VMJWYW9",
                                    name="cdk_first_prompt_flow1",
 
                                    ###################################
@@ -31,7 +57,7 @@ class CdkFlowStack(Stack):
                                             #Define connections from Input node to the Prompt node
                                             bedrock.CfnFlow.FlowConnectionProperty(
                                                 name="InputNodePromptNode",
-                                                source="InputNode",
+                                                source="FlowInputNode",
                                                 target="Prompt_1Node",
                                                 #Whether the source node that the connection begins from is a condition node ( Conditional ) or not ( Data ).
                                                 type="Data",
@@ -48,7 +74,7 @@ class CdkFlowStack(Stack):
                                             bedrock.CfnFlow.FlowConnectionProperty(
                                             name="PromptNode_OutputNode",
                                             source="Prompt_1Node",
-                                            target="OutputNode",
+                                            target="FlowOutputNode",
                                             #Whether the source node that the connection begins from is a condition node ( Conditional ) or not ( Data ).
                                             type="Data",
                                             # the properties below are optional
@@ -107,7 +133,7 @@ class CdkFlowStack(Stack):
                                             
                                             ##Create Input Node
                                             bedrock.CfnFlow.FlowNodeProperty(
-                                               name="InputNode",
+                                               name="FlowInputNode",
                                                type="Input",
                                             #    inputs=[
                                             #        bedrock.CfnFlow.FlowNodeInputProperty(
@@ -125,7 +151,7 @@ class CdkFlowStack(Stack):
 
                                             ##Create Output Node
                                             bedrock.CfnFlow.FlowNodeProperty(
-                                                name="OutputNode",
+                                                name="FlowOutputNode",
                                                 type="Output",
                                                 inputs=[
                                                    bedrock.CfnFlow.FlowNodeInputProperty(
