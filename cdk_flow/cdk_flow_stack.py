@@ -89,6 +89,43 @@ class CdkFlowStack(Stack):
                                         #Secondly, define all the Nodes
                                         nodes=[
                                             ###1. Define the Prompt Node and its properties
+                                            ##Create Input Node
+                                            bedrock.CfnFlow.FlowNodeProperty(
+                                               name="FlowInputNode",
+                                               type="Input",
+                                            #    inputs=[
+                                            #        bedrock.CfnFlow.FlowNodeInputProperty(
+                                            #            #expression="$.input.text",
+                                            #            expression="$.data",
+                                            #            name="document",
+                                            #            type="String"
+                                            #            )],
+                                                outputs=[
+                                                    bedrock.CfnFlow.FlowNodeOutputProperty(
+                                                                   name="document",
+                                                                   type="String"
+                                                                   )
+                                                ]),
+                                            
+                                            ##Create Output Node
+                                            bedrock.CfnFlow.FlowNodeProperty(
+                                                name="FlowOutputNode",
+                                                type="Output",
+                                                inputs=[
+                                                   bedrock.CfnFlow.FlowNodeInputProperty(
+                                                       expression="$.data",
+                                                       name="document",
+                                                       type="String"
+                                                       )]
+                                                #        ,
+                                                # outputs=[
+                                                #     bedrock.CfnFlow.FlowNodeOutputProperty(
+                                                #         name="document",
+                                                #         type="String"
+                                                #         )]
+                                            ),
+
+
                                             bedrock.CfnFlow.FlowNodeProperty(
                                             name="Prompt_1Node",
                                             type="Prompt",
@@ -112,10 +149,10 @@ class CdkFlowStack(Stack):
                                                 prompt=bedrock.CfnFlow.PromptFlowNodeConfigurationProperty(
                                                     source_configuration=bedrock.CfnFlow.PromptFlowNodeSourceConfigurationProperty(
                                                         inline=bedrock.CfnFlow.PromptFlowNodeInlineConfigurationProperty(
-                                                            model_id="anthropic.claude-3-haiku-20240307-v1:0",
+                                                            model_id="anthropic.claude-v2",
                                                             template_configuration=bedrock.CfnFlow.PromptTemplateConfigurationProperty(
                                                                 text=bedrock.CfnFlow.TextPromptTemplateConfigurationProperty(
-                                                                    text="You take the users' questions and categorize  in any one of the following: \"spa_services\" if user's quesiton is around spa services, \"generic\" if user's question is anything else. Provide only one category type as an asnwer.",
+                                                                    text="You take the users' questions and categorize  in any one of the following: \"spa_services\" if user's quesiton is around spa services, \"generic\" if user's question is anything else. Provide only one category type as an asnwer: {{user_input}}",
                                                                     
                                                                     # the properties below are optional
                                                                     input_variables=[bedrock.CfnFlow.PromptInputVariableProperty(
@@ -123,49 +160,27 @@ class CdkFlowStack(Stack):
                                                                         )]
                                                                 )
                                                             ),
-                                                            template_type="TEXT"
+                                                            template_type="TEXT",
+
+                                                            # the properties below are optional
+                                                            inference_configuration=bedrock.CfnFlow.PromptInferenceConfigurationProperty(
+                                                                text=bedrock.CfnFlow.PromptModelInferenceConfigurationProperty(
+                                                                    max_tokens=1000,
+                                                                    #stop_sequences=["stopSequences"],
+                                                                    temperature=0.5,
+                                                                    top_k=50,
+                                                                    top_p=0.5
+                                                                )
+                                                            )
                                                         )
                                                         
                                                     )
                                                 )
                                                 
-                                            )),
+                                              )
+                                            )
                                             
-                                            ##Create Input Node
-                                            bedrock.CfnFlow.FlowNodeProperty(
-                                               name="FlowInputNode",
-                                               type="Input",
-                                            #    inputs=[
-                                            #        bedrock.CfnFlow.FlowNodeInputProperty(
-                                            #            #expression="$.input.text",
-                                            #            expression="$.data",
-                                            #            name="document",
-                                            #            type="String"
-                                            #            )],
-                                                outputs=[
-                                                    bedrock.CfnFlow.FlowNodeOutputProperty(
-                                                                   name="document",
-                                                                   type="String"
-                                                                   )
-                                                ]),
-
-                                            ##Create Output Node
-                                            bedrock.CfnFlow.FlowNodeProperty(
-                                                name="FlowOutputNode",
-                                                type="Output",
-                                                inputs=[
-                                                   bedrock.CfnFlow.FlowNodeInputProperty(
-                                                       expression="$.data",
-                                                       name="document",
-                                                       type="String"
-                                                       )]
-                                                #        ,
-                                                # outputs=[
-                                                #     bedrock.CfnFlow.FlowNodeOutputProperty(
-                                                #         name="document",
-                                                #         type="String"
-                                                #         )]
-                                            )]
+                                        ]
                                    ),
                                    description="description",
                                     tags={
