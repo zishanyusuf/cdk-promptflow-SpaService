@@ -22,7 +22,7 @@ class CdkFlowStack(Stack):
 
         # Define the IAM policy for the Bedrock Flow
         bedrock_flow_policy = iam.PolicyStatement(
-            actions=["bedrock:CreateFlow", "bedrock:UpdateFlow"],
+            actions=["bedrock:CreateFlow", "bedrock:UpdateFlow", "bedrock:InvokeModel"],
             resources=["*"],
             effect=iam.Effect.ALLOW,
         )
