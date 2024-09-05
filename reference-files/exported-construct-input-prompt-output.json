@@ -1,0 +1,114 @@
+{
+    "arn": "arn:aws:bedrock:us-west-2:471112580598:flow/A5QIOMP43B",
+    "createdAt": "2024-08-28T23:03:09.054744+00:00",
+    "definition": {
+        "connections": [
+            {
+                "configuration": {
+                    "data": {
+                        "sourceOutput": "document",
+                        "targetInput": "user_input"
+                    }
+                },
+                "name": "FlowInputNodeFlowInputNode0ToPrompt_1PromptsNode0",
+                "source": "FlowInputNode",
+                "target": "Prompt_1",
+                "type": "Data"
+            },
+            {
+                "configuration": {
+                    "data": {
+                        "sourceOutput": "modelCompletion",
+                        "targetInput": "document"
+                    }
+                },
+                "name": "Prompt_1PromptsNode0ToFlowOutputNodeFlowOutputNode0",
+                "source": "Prompt_1",
+                "target": "FlowOutputNode",
+                "type": "Data"
+            }
+        ],
+        "nodes": [
+            {
+                "configuration": {
+                    "input": {}
+                },
+                "name": "FlowInputNode",
+                "outputs": [
+                    {
+                        "name": "document",
+                        "type": "String"
+                    }
+                ],
+                "type": "Input"
+            },
+            {
+                "configuration": {
+                    "output": {}
+                },
+                "inputs": [
+                    {
+                        "expression": "$.data",
+                        "name": "document",
+                        "type": "String"
+                    }
+                ],
+                "name": "FlowOutputNode",
+                "type": "Output"
+            },
+            {
+                "configuration": {
+                    "prompt": {
+                        "sourceConfiguration": {
+                            "inline": {
+                                "inferenceConfiguration": {
+                                    "text": {
+                                        "maxTokens": 1000,
+                                        "temperature": 0.5,
+                                        "topK": 50,
+                                        "topP": 0.5
+                                    }
+                                },
+                                "modelId": "anthropic.claude-v2",
+                                "templateConfiguration": {
+                                    "text": {
+                                        "inputVariables": [
+                                            {
+                                                "name": "user_input"
+                                            }
+                                        ],
+                                        "text": "You take the users' questions and categorize  in any one of the following: \"spa_services\" if user's quesiton is 
+around spa services, \"generic\" if user's question is anything else. Provide only one category type as an asnwer {{user_input}}"
+                                    }
+                                },
+                                "templateType": "TEXT"
+                            }
+                        }
+                    }
+                },
+                "inputs": [
+                    {
+                        "expression": "$.data",
+                        "name": "user_input",
+                        "type": "String"
+                    }
+                ],
+                "name": "Prompt_1",
+                "outputs": [
+                    {
+                        "name": "modelCompletion",
+                        "type": "String"
+                    }
+                ],
+                "type": "Prompt"
+            }
+        ]
+    },
+    "executionRoleArn": "arn:aws:iam::471112580598:role/service-role/AmazonBedrockExecutionRoleForFlows_HXJ1CX6SASQ",
+    "id": "A5QIOMP43B",
+    "name": "input-Prompt-Output-Flow",
+    "status": "Prepared",
+    "updatedAt": "2024-08-28T23:06:58.452335+00:00",
+    "validations": [],
+    "version": "DRAFT"
+}

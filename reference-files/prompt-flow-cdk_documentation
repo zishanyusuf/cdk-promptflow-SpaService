@@ -1,3 +1,6 @@
+#This file is a copy paste of the CDK documenation of the PromptFlow as mentioned in the Website here: https://docs.aws.amazon.com/cdk/api/v2/python/aws_cdk.aws_bedrock/CfnFlow.html
+
+
 # The code below shows an example of how to instantiate this type.
 # The values are placeholders you should change.
 from aws_cdk import aws_bedrock as bedrock
