@@ -9,7 +9,7 @@ While I understand that easy usage of GUI is a step forward, in the real world, 
 
 ## Use Case
 My experimental use case is simple, but enough to demo the power of GenAI and IaC. Imagine a guest is able to open a chatbot of a hotel and asks questions. The chatbot is able to analyze the text if the question is about the Spa Services available at the hotel. If yes, then it categorizes as "Spa_Service" related questions, if no, then it categorizes as "generic" question.
-
+![image](https://github.com/user-attachments/assets/8c536771-44a9-496d-ba22-a151a7928a44)
 ## Implementations
 AWS has released L1 construct of the Bedrock PromptFlow, which is close to Cloudformation template. I am looking forward for the AWS to release higher consturct as the PromptFlow moves from experimental phase to more matured services. I went ahead and used the L1 Python construct. Reviewing the [Bedrock PromptFlow CDK L1 construct](https://docs.aws.amazon.com/cdk/api/v2/python/aws_cdk.aws_bedrock/CfnFlow.html), i found the pattern similar to topology design in any network analytics. The pattern contains:
 1. First define all the NODES that a flow will have, e.g., Input, Output, Prompt, Conditional etc.
