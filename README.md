@@ -18,7 +18,7 @@ AWS has released L1 construct of the Bedrock PromptFlow, which is close to Cloud
 4. Thirdly, the IAM permisssion and policies are added in the CDK code
 
 # How to setup this example in your AWS Account
-1. Clone this GitHub repository to your dev environment. [GitHub Cloning Steps](https://learn.microsoft.com/en-us/visualstudio/version-control/git-clone-repository?view=vs-2022)
+1. Clone this GitHub repository to your dev environment. [GitHub Cloning Steps]([https://learn.microsoft.com/en-us/visualstudio/version-control/git-clone-repository?view=vs-2022](https://www.youtube.com/watch?v=Nl0J_tcnhQ4&t=134s))
 2. Next run the following command to configure and Deploy the CDK
 ```
 $ cdk synth
