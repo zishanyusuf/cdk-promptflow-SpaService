@@ -1,5 +1,5 @@
 
-# Welcome to your CDK Python project!
+# Amazon Bedrock Prompt Flow - AI with Infrastructure as a Code!
 
 This is a blank project for CDK development with Python.
 
