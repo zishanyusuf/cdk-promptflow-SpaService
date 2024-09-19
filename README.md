@@ -19,7 +19,8 @@ AWS has released L1 construct of the Bedrock PromptFlow, which is close to Cloud
 
 # How to setup this example in your AWS Account
 1. Clone this GitHub repository to your dev environment. [GitHub Cloning Steps](https://www.youtube.com/watch?v=Nl0J_tcnhQ4&t=134s)
-2. Next run the following command to configure and Deploy the CDK
+2. Run all the commands to setup a CDK environment (Refer the section CDK Setup Instructions)
+3. Next run the following command to configure and Deploy this Demo
 ```
 $ cdk synth
 $ cdk deploy
