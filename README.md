@@ -24,6 +24,10 @@ AWS has released L1 construct of the Bedrock PromptFlow, which is close to Cloud
 $ cdk synth
 $ cdk deploy
 ```
+Once the deployment is successful, you will see the new Prompt Flows instance created with the name "cdk_first_prompt_flow1"
+<img width="1134" alt="image" src="https://github.com/user-attachments/assets/96fd7c05-5e76-4e7c-9e9b-d0d70bec7bd3">
+
+
 3. Once you are done reviewing the prompt flow in the Bedrock Console of AWS, then don't forget to destroy
 ```
 $ cdk destroy
