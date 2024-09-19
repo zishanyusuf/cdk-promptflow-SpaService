@@ -1,29 +1,35 @@
-For the love of Network Optimization, GenAI and IaC, i couldn't resist myself to get my hand dirty on doing it by myself and learning in the process. While doing it i found it very similar to the modeling and analytical exercise that I do while desining the network. It is similar because i have to be cognizant of the identified nodes and connections of the nodes across.
-
 # Amazon Bedrock Prompt Flow - AI with Infrastructure as a Code!
-This project demonstrates the ability to create Amazon Bedrock PromptFlow with the Infrastructure as a Code (IAC) - the CDK in AWS. PromptFlow is a revolutionzing concept in the AI, that allows a general users to leverage the GUI to customize and use the GenAI model while integrating it with other serverless services e.g., Lambda, DynamoDB etc. This empowers the the direct implementation of the GenAI in various use cases of application development. And what more one can ask if it's super intuitive to do so with GUI. Here is an example that kicked me:
+This project demonstrates the ability to create Amazon Bedrock PromptFlow with the Infrastructure as a Code (IAC) - leveraging CDK in AWS. Amazon Bedrock PromptFlow is an exciting new capability that allows one to leverage the power of generative AI models like Amazon CodeWhisperer through an intuitive graphical interface. By combining PromptFlow with Infrastructure as Code (IaC) using the AWS Cloud Development Kit (CDK), one can streamline the process of deploying and managing AI-powered applications on AWS. The generated IaC code can be further customized and integrated with other AWS services like AWS Lambda, Amazon DynamoDB, Amazon S3, and more. This allows one to build end-to-end applications that leverage the power of generative AI while seamlessly integrating with existing infrastructure.
+
+Here is an example that kicked me:
 * [Demo - Amazon Bedrock Prompt Management | Amazon Web Services](https://www.youtube.com/watch?v=CE_-zrMvcuk)
 * [Demo - Amazon Bedrock Prompt Flows | Amazon Web Services](https://www.youtube.com/watch?v=_Bmk6peAHao)
 
-While i get that easy usage of GUI is a thing forward, in real world the flow and logic changes pretty fast. And we don't have to start building flows right from the scratch every time. We heavily use templates - a pre-built basic flows that allows us to do further customization. Therefore, i expriemented with building the PromptFlows not with GUI, but with CDK - yes!! the IaC services from AWS. My experimental basic use case is simple, but enough to demo the power of GenAI and IaC. I wanted to build the following:
+While I understand that easy usage of GUI is a step forward, in the real world, the business logic change pretty fast, and so is the requirement to adapt the GenAI flows too. In that context, we don't have to start building flows right from scratch every time. We heavily use templates - pre-built basic flows that allow us to do further customization. Therefore, I experimented with building the PromptFlows not with the GUI, but with CDK - yes, the IaC service from AWS.
 
 ## Use Case
+My experimental use case is simple, but enough to demo the power of GenAI and IaC. Imagine a guest is able to open a chatbot of a hotel and asks questions. The chatbot is able to analyze the text if the question is about the Spa Services available at the hotel. If yes, then it categorizes as "Spa_Service" related questions, if no, then it categorizes as "generic" question.
 
 ## Implementations
 AWS has released L1 construct of the Bedrock PromptFlow, which is close to Cloudformation template. I am looking forward for the AWS to release higher consturct as the PromptFlow moves from experimental phase to more matured services. I went ahead and used the L1 Python construct. Reviewing the [Bedrock PromptFlow CDK L1 construct](https://docs.aws.amazon.com/cdk/api/v2/python/aws_cdk.aws_bedrock/CfnFlow.html), i found the pattern similar to topology design in any network analytics. The pattern contains:
 1. First define all the NODES that a flow will have, e.g., Input, Output, Prompt, Conditional etc.
 2. Within the node defintion, define properties of each nodes - data type it handles, LLM models it's going to use etc.
 3. Secondly, define CONNECTIONS for all the nodes - origin and destinations pair connected with each other
-4. Thirdly, i needed to overlay the IAM permisssion and policies
+4. Thirdly, the IAM permisssion and policies are added in the CDK code
 
-5. 
-1. Define and create an input that starts the logical flow
-2. Connect it with 
+# How to setup this example in your AWS Account
+1. Clone this GitHub repository to your dev environment. [GitHub Cloning Steps](https://learn.microsoft.com/en-us/visualstudio/version-control/git-clone-repository?view=vs-2022)
+2. Next run the following command to configure and Deploy the CDK
+```
+$ cdk synth
+$ cdk deploy
+```
+3. Once you are done reviewing the prompt flow in the Bedrock Console of AWS, then don't forget to destroy
+```
+$ cdk destroy
+```
 
-This is a blank project for CDK development with Python.
-
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
-
+# CDK setup Instructions
 This project is set up like a standard Python project.  The initialization
 process also creates a virtualenv within this project, stored under the `.venv`
 directory.  To create the virtualenv it assumes that there is a `python3`
